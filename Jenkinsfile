@@ -1,8 +1,8 @@
 pipeline {
   agent any
     tools {
-      maven 'maven3'
-                 jdk 'JDK8'
+      maven 'maven'
+                 jdk 'java17'
     }
     stages {      
         stage('Build maven ') {
@@ -23,7 +23,7 @@ pipeline {
            steps {
                script {         
                  def customImage = docker.build('cloudfreak/petclinic', "./docker")
-                 docker.withRegistry('https://cloudfreak.azurecr.io', 'acr-demo') {
+                 docker.withRegistry('swarupacontainer.azurecr.io', 'container') {
                  customImage.push("${env.BUILD_NUMBER}")
                  }                     
            }
